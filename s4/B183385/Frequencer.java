@@ -53,7 +53,24 @@ public class Frequencer implements FrequencerInterface{
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+		if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
+		//When TARGET's length is zero
+		System.out.println("\nWhen TARGET's length is zero");
+		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		myObject.setTarget("".getBytes());
+		freq = myObject.frequency();
+		System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+			
+		//When SPACE's length is zero
+		System.out.println("\nWhen SPACE's length is zero");
+		myObject.setSpace("".getBytes());
+		myObject.setTarget("H".getBytes());
+		freq = myObject.frequency();
+		System.out.print("\"H\" in \"\" appears "+freq+" times. ");
+		if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");

@@ -103,6 +103,25 @@ public class InformationEstimator implements InformationEstimatorInterface{
 	myObject.setTarget("00".getBytes());
 	value = myObject.estimation();
 	System.out.println(">00 "+value);
+
+	//It returns 0.0 when the TARGET is not set or TARGET's length is zero;
+	System.out.println("\nWhen TARGET is not set or TARGET's length is zero (should return 0)");
+	myObject.setSpace("3210321001230123".getBytes());
+	myObject.setTarget("xx".getBytes());
+	value = myObject.estimation();
+	System.out.println(">xx "+value);
+	
+	myObject.setTarget("".getBytes());
+	value = myObject.estimation();
+	System.out.println("> "+value);
+
+	//It returns Double.MAX_VALUE when the true value is infinite, or SPACE is not set.		
+	System.out.println("\nWhen SPACE is not set (should return Double.MAX_VALUE)");
+	myObject.setSpace("".getBytes());
+	myObject.setTarget("0".getBytes());
+	value = myObject.estimation();
+	System.out.println(">0 "+value);
+
     }
 }
 				  
