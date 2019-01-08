@@ -42,6 +42,9 @@ public class Frequencer implements FrequencerInterface{
     }
 
     public static void main(String[] args) {
+	
+		System.out.println("Hellllllllo");
+
 	Frequencer myObject;
 	int freq;
 	try {
