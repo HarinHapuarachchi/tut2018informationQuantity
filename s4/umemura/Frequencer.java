@@ -27,6 +27,7 @@ public class Frequencer implements FrequencerInterface{
 
      int []  suffixArray;
 
+
      // The variable, "suffixArray" is the sorted array of all suffixes of mySpace.
      // Each suffix is expressed by a integer, which is the starting position in mySpace.
      // The following is the code to print the variable
@@ -66,7 +67,7 @@ public class Frequencer implements FrequencerInterface{
          if(i+1 <= mySpace.length && j+1 > mySpace.length)
              return 1;
          if(i+1 > mySpace.length && j+1 > mySpace.length)
-             break;
+             //break;
          suffixCompare(i+1,j+1);
      }
         return 0; // This line should be modified.
