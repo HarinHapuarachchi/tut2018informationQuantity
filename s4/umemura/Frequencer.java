@@ -1,4 +1,4 @@
-package s4.B183385;
+package s4.umemura;
 import java.lang.*;
 import s4.specification.*;
 
@@ -58,18 +58,18 @@ public class Frequencer implements FrequencerInterface{
         //
         // ****  Please write code here... ***
         if(mySpace[i]>mySpace[j])
-         return 1;
+            return 1;
      	else if(mySpace[i]<mySpace[j])
-         return -1;
+            return -1;
      	else if(mySpace[i]==mySpace[j]){
-         if(i+1 > mySpace.length && j+1 <= mySpace.length)
-             return -1;
-         if(i+1 <= mySpace.length && j+1 > mySpace.length)
-             return 1;
-         if(i+1 > mySpace.length && j+1 > mySpace.length)
-             //break;
-         suffixCompare(i+1,j+1);
-     }
+            if(i+1 > mySpace.length && j+1 <= mySpace.length)
+                return -1;
+            if(i+1 <= mySpace.length && j+1 > mySpace.length)
+                return 1;
+            if(i+1 > mySpace.length && j+1 > mySpace.length)
+                return 0;
+            suffixCompare(i+1,j+1);
+        }
         return 0; // This line should be modified.
      }
 
@@ -84,11 +84,12 @@ public class Frequencer implements FrequencerInterface{
         //
         //
         // ****  Please write code here... ***
-         for(int i=0;i<mySpace.length;i++){
-             for(int j=i+1;j<mySpace.length;j++){
-                 int flag = suffixCompare(i,j);
-                 if(flag == 1)
-                     suffixArray[i] = mySpace.length-j;
+        for(int i=0;i<mySpace.length;i++){
+            for(int j=i+1;j<mySpace.length;j++){
+                int flag = suffixCompare(i,j);
+                if(flag == 1)
+                    suffixArray[i] = (byte)j;
+                    suffixArray[j] = (byte)i;
              }
          }
      }
@@ -190,13 +191,18 @@ public class Frequencer implements FrequencerInterface{
             //
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
             //
+            
+
 
             int result = frequencerObject.frequency();
             System.out.print("Freq = "+ result+" ");
-            if(4 == result) { System.out.println("OK"); } else 
-{System.out.println("WRONG"); }
-        }
-        catch(Exception e) {
+
+            if(4 == result) { System.out.println("OK"); 
+            } else {
+                System.out.println("WRONG"); 
+            }
+        
+        }catch(Exception e) {
             System.out.println("STOP");
         }
      }
