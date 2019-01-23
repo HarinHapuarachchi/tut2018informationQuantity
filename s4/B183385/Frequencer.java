@@ -2,17 +2,24 @@ package s4.B183385;
 import java.lang.*;
 import s4.specification.*;
 
+/*
+package s4.specification;
 
-/*package s4.specification;
-
-public interface FrequencerInterface {     // This interface provides the design for frequency counter.
+public interface FrequencerInterface {     // This interface provides 
+the design for frequency counter.
      void setTarget(byte  target[]); // set the data to search.
-     void setSpace(byte  space[]);  // set the data to be searched target from.
-     int frequency(); //It return -1, when TARGET is not set or TARGET's length is zero
-                     //Otherwise, it return 0, when SPACE is not set or SPACE's length is zero
-                     //Otherwise, get the frequency of TAGET in SPACE int subByteFrequency(int start, int end);
-     // get the frequency of subByte of taget, i.e target[start], taget[start+1], ... , target[end-1].
-     // For the incorrect value of START or END, the behavior is undefined.
+     void setSpace(byte  space[]);  // set the data to be searched target 
+from.
+     int frequency(); //It return -1, when TARGET is not set or TARGET's 
+length is zero
+                     //Otherwise, it return 0, when SPACE is not set or 
+SPACE's length is zero
+                     //Otherwise, get the frequency of TAGET in SPACE
+     int subByteFrequency(int start, int end);
+     // get the frequency of subByte of taget, i.e target[start], 
+taget[start+1], ... , target[end-1].
+     // For the incorrect value of START or END, the behavior is 
+undefined.
 }
 */
 
@@ -26,7 +33,6 @@ public class Frequencer implements FrequencerInterface{
      boolean spaceReady = false;
 
      int []  suffixArray;
-
 
      // The variable, "suffixArray" is the sorted array of all suffixes of mySpace.
      // Each suffix is expressed by a integer, which is the starting position in mySpace.
@@ -57,20 +63,24 @@ public class Frequencer implements FrequencerInterface{
         // "Ho"     <  "Ho "      ; if the prefix is identical, longer string is big
         //
         // ****  Please write code here... ***
-        if(mySpace[i]>mySpace[j])
-            return 1;
-     	else if(mySpace[i]<mySpace[j])
-            return -1;
-     	else if(mySpace[i]==mySpace[j]){
-            if(i+1 > mySpace.length && j+1 <= mySpace.length)
-                return -1;
-            if(i+1 <= mySpace.length && j+1 > mySpace.length)
-                return 1;
-            if(i+1 > mySpace.length && j+1 > mySpace.length)
-                return 0;
-            suffixCompare(i+1,j+1);
-        }
-        return 0; // This line should be modified.
+         i = suffixArray[i];
+         j = suffixArray[j];
+         while(i<mySpace.length && j<mySpace.length){
+             if(mySpace[i] > mySpace[j])
+                 return 1;
+             else if(mySpace[i]==mySpace[j]){
+                 i++;
+                 j++;
+             }
+             else{
+                 return -1;
+             }
+         }
+         if(i<mySpace.length && j>=mySpace.length)
+             return 1;
+         else if(i>=mySpace.length && j<mySpace.length)
+             return -1;
+         return 0; // This line should be modified.
      }
 
      public void setSpace(byte []space) {
@@ -80,16 +90,16 @@ public class Frequencer implements FrequencerInterface{
         for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
         }
-        // Sorting is not implmented yet.
-        //
-        //
+        // Sorting is not implmented yet
         // ****  Please write code here... ***
-        for(int i=0;i<mySpace.length;i++){
-            for(int j=i+1;j<mySpace.length;j++){
-                int flag = suffixCompare(i,j);
-                if(flag == 1)
-                    suffixArray[i] = (byte)j;
-                    suffixArray[j] = (byte)i;
+         for(int i=0;i<mySpace.length-1;i++){
+             for(int j=mySpace.length-1;j>i;j--){
+                 int flag = suffixCompare(j,j-1);
+                 if(flag == -1){
+                     int tmpNum = suffixArray[j-1];
+                     suffixArray[j-1] = suffixArray[j];
+                     suffixArray[j] = tmpNum;
+                 }
              }
          }
      }
@@ -191,18 +201,14 @@ public class Frequencer implements FrequencerInterface{
             //
             // ****  Please write code to check subByteStartIndex, and subByteEndIndex
             //
-            
-
 
             int result = frequencerObject.frequency();
             System.out.print("Freq = "+ result+" ");
-
-            if(4 == result) { System.out.println("OK"); 
-            } else {
-                System.out.println("WRONG"); 
-            }
+            if(4 == result) { System.out.println("OK"); } 
+            else {System.out.println("WRONG"); }
         
-        }catch(Exception e) {
+        }
+        catch(Exception e) {
             System.out.println("STOP");
         }
      }
