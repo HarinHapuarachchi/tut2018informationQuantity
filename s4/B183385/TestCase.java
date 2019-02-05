@@ -1,6 +1,6 @@
 package s4.B183385; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
 import java.lang.*;
-import s4.specificaion.*;
+import s4.specification.*;
 
 /*
 interface FrequencerInterface {     // This interface provides the design for frequency counter.
@@ -31,137 +31,118 @@ public interface InformationEstimatorInterface{
 
 public class TestCase {
     public static void main(String[] args) {
+	int c;
+	c = 0;
 	try {
 	    FrequencerInterface  myObject;
 	    int freq;
-	    System.out.println("checking s4.B183385.Frequencer");
-	    myObject = new s4.B183385.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
-		freq = myObject.frequency();
-	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-		if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-		myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
-		freq = myObject.frequency();
-	    System.out.print("\"x\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
-		myObject.setSpace("xxxxxxx".getBytes());
-	    myObject.setTarget("H".getBytes());
-		freq = myObject.frequency();
-	    System.out.print("\"H\" in \"xxxxxx\" appears "+freq+" times. ");
-		if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-		
-		//When TARGET's length is zero
-		System.out.println("\nWhen TARGET's length is zero");
-		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+		    c = 0;
+	    System.out.println("checking Frequencer");
+	    myObject = new Frequencer();
+	    freq = myObject.frequency();
+	    if(-1 != freq) { System.out.println("frequency() should return -1, when target is not set, but returns "+freq); c++; }
+	    myObject = new Frequencer();
 	    myObject.setTarget("".getBytes());
 	    freq = myObject.frequency();
-	    System.out.print("\"\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-			
-		//When SPACE's length is zero
-		System.out.println("\nWhen SPACE's length is zero");
-		myObject.setSpace("".getBytes());
+	    if(-1 != freq) { System.out.println("frequency() should return -1, when target is empty, but return "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    if(-1 != freq) { System.out.println("frequency() for AAA should return -1, when target is  not set. But it returns  "+freq); c++; }	
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    myObject.setTarget("".getBytes());
+	    freq = myObject.frequency();
+	    if(-1 != freq) { System.out.println("frequency() for AAA should return -1, when taget empty string. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setTarget("A".getBytes());
+	    freq = myObject.frequency();	   
+ 	    if(0 != freq) { System.out.println("frequency() for not set, should return 0, when taget is not empty. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("".getBytes());
+	    myObject.setTarget("A".getBytes());
+	    freq = myObject.frequency();	   
+ 	    if(0 != freq) { System.out.println("frequency() for empty space, should return 0, when taget is not empty. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    myObject.setTarget("A".getBytes());
+	    freq = myObject.frequency();
+	    if(3 != freq) { System.out.println("frequency() for AAA, should return 3, when taget is A. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    myObject.setTarget("AA".getBytes());
+	    freq = myObject.frequency();
+	    if(2 != freq) { System.out.println("frequency() for AAA, should return 2, when taget is AA. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    myObject.setTarget("AAA".getBytes());
+	    freq = myObject.frequency();
+	    if(1 != freq) { System.out.println("frequency() for AAA, should return 1, when taget is AAA. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAA".getBytes());
+	    myObject.setTarget("AAAA".getBytes());
+	    freq = myObject.frequency();
+	    if(0 != freq) { System.out.println("frequency() for AAA, should return 0, when taget is AAAA. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"\" appears "+freq+" times. ");
-	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
-
-	try {
-	    FrequencerInterface  myObject;
-		int freq;
-		System.out.println("\nWhen TARGET is not set");
-	    //System.out.println("checking s4.B183385.Frequencer");
-	    myObject = new s4.B183385.Frequencer();
-
-		//When TARGET is not set
-		myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    if(4 != freq) {System.out.println("frequency() for Hi_Ho_Hi_Ho, should return 4, when taget is H. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
+	    myObject.setTarget("Ho".getBytes());
 	    freq = myObject.frequency();
-	    System.out.print("\"(TARGET is not set)\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-		if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-
+	    if(2 != freq) {System.out.println("frequency() for Hi_Ho_Hi_Ho, should return 2, when taget is Ho. But it returns "+freq); c++; }
+	    /* please note subByteFreqency(0,0) is considered illeagal specification, and you should not include this case */
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAAB".getBytes());
+	    myObject.setTarget("AAAAB".getBytes());
+	    freq = myObject.subByteFrequency(0,1);
+	    if(3 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 3, when taget is AAAAB[0:1]. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAAB".getBytes());
+	    myObject.setTarget("AAAAB".getBytes());
+	    freq = myObject.subByteFrequency(1,2);
+	    if(3 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 2, when taget is AAAAB[1:2]. But it returns "+freq); c++; }
+	    if(2 == freq) { System.out.println("You might be confused by the intentional error in sample code.");   }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAAB".getBytes());
+	    myObject.setTarget("AAAAB".getBytes());
+	    freq = myObject.subByteFrequency(1,3);
+	    if(2 != freq) { System.out.println("SubBytefrequency() for AAAB, should return 2, when taget is AAAAB[1:3]. But it returns "+freq); c++; }
+	    myObject = new Frequencer();
+	    myObject.setSpace("AAAB".getBytes());
+	    myObject.setTarget("AAAAB".getBytes());
+	    freq = myObject.subByteFrequency(4,5);
+	    if(1 != freq) { 
+		System.out.println("SubBytefrequency() for AAAB, should return 1, when taget is AAAAB[4:5]. But it returns "+freq); c++;  
+	    }
 	}
 	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
+	    System.out.println("Exception occurred in Frequencer Object: STOP");
 	}
-
-	try {
-	    FrequencerInterface  myObject;
-		int freq;
-		System.out.println("\nWhen SPACE is not set");
-	    //System.out.println("checking s4.B183385.Frequencer");
-	    myObject = new s4.B183385.Frequencer();
-		//When SPACE is not set
-	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"(SPACE is not set)\" appears "+freq+" times. ");
-		if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-		
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
-
-
 
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
-	    System.out.println("\nchecking s4.B183385.InformationEstimator ");
-	    myObject = new s4.B183385.InformationEstimator();
+	    System.out.println("checking s4.slow.InformationEstimator");
+	    myObject = new InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">0 "+value);
+	    if((value < 1.9999) || (2.0001 <value)) { System.out.println("IQ for 0 in 3210321001230123 should be 2.0. But it returns "+value); c++; }
 	    myObject.setTarget("01".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">01 "+value);
+	    if((value < 2.9999) || (3.0001 <value)) { System.out.println("IQ for 01 in 3210321001230123 should be 3.0. But it returns "+value); c++; }
 	    myObject.setTarget("0123".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">0123 "+value);
+	    if((value < 2.9999) || (3.0001 <value)) { System.out.println("IQ for 0123 in 3210321001230123 should be 3.0. But it returns "+value); c++; }
 	    myObject.setTarget("00".getBytes());
 	    value = myObject.estimation();
-	    System.out.println(">00 "+value);
+	    if((value < 3.9999) || (4.0001 <value)) { System.out.println("IQ for 00 in 3210321001230123 should be 4.0. But it returns "+value); c++; }
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
 	}
-
-
-	try {
-	    InformationEstimatorInterface myObject;
-		double value;    
-		myObject = new s4.B183385.InformationEstimator();
-		//It returns 0.0 when the TARGET is not set or TARGET's length is zero;
-		System.out.println("\nWhen TARGET is not set or TARGET's length is zero (should return 0)");
-		myObject.setSpace("3210321001230123".getBytes());
-		myObject.setTarget("xx".getBytes());
-	    value = myObject.estimation();
-		System.out.println(">xx "+value);
-		
-	    myObject.setTarget("".getBytes());
-	    value = myObject.estimation();
-		System.out.println("> "+value);
-
-		//It returns Double.MAX_VALUE when the true value is infinite, or SPACE is not set.		
-		System.out.println("\nWhen SPACE is not set (should return Double.MAX_VALUE)");
-		myObject.setSpace("".getBytes());
-	    myObject.setTarget("0".getBytes());
-	    value = myObject.estimation();
-	    System.out.println(">0 "+value);
-
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
-
+	if(c == 0) { System.out.println("TestCase OK"); }
     }
-}	    
-	    
+}
